@@ -220,8 +220,11 @@ fn load_or_create_salt(app: &AppHandle, create: bool) -> DbResult<[u8; 16]> {
 
 fn derive_key(password: &str, salt: &[u8]) -> DbResult<[u8; 32]> {
     let mut key = [0u8; 32];
-    Argon2::new(Algorithm::Argon2id, Version::V0x13, Params::default())
-        .hash_password_into(password.as_bytes(), salt, &mut key)?;
+    Argon2::new(Algorithm::Argon2id, Version::V0x13, Params::default()).hash_password_into(
+        password.as_bytes(),
+        salt,
+        &mut key,
+    )?;
     Ok(key)
 }
 
@@ -315,7 +318,11 @@ fn cleanup_rekey_artifacts(app: &AppHandle) -> DbResult<()> {
 }
 
 fn allowed_roots(app: &AppHandle) -> DbResult<Vec<PathBuf>> {
-    Ok(vec![data_dir(app)?, app_local_data_dir(app)?, document_dir(app)?])
+    Ok(vec![
+        data_dir(app)?,
+        app_local_data_dir(app)?,
+        document_dir(app)?,
+    ])
 }
 
 fn canonical_parent(path: &Path) -> DbResult<PathBuf> {
@@ -372,7 +379,9 @@ fn validate_date(value: &str, field: &str) -> DbResult<()> {
     if ok {
         Ok(())
     } else {
-        Err(DbError::Message(format!("{field} debe tener formato YYYY-MM-DD")))
+        Err(DbError::Message(format!(
+            "{field} debe tener formato YYYY-MM-DD"
+        )))
     }
 }
 
@@ -387,7 +396,9 @@ fn validate_month(value: &str, field: &str) -> DbResult<()> {
     if ok {
         Ok(())
     } else {
-        Err(DbError::Message(format!("{field} debe tener formato YYYY-MM")))
+        Err(DbError::Message(format!(
+            "{field} debe tener formato YYYY-MM"
+        )))
     }
 }
 
@@ -406,10 +417,14 @@ fn validate_input(input: &CirugiaInput) -> DbResult<()> {
         return Err(DbError::Message("Diagnóstico requerido".into()));
     }
     if input.diagnostico.chars().count() > 1000 {
-        return Err(DbError::Message("Diagnóstico demasiado largo (máx 1000)".into()));
+        return Err(DbError::Message(
+            "Diagnóstico demasiado largo (máx 1000)".into(),
+        ));
     }
     if input.procedimiento_quirurgico.trim().is_empty() {
-        return Err(DbError::Message("Procedimiento quirúrgico requerido".into()));
+        return Err(DbError::Message(
+            "Procedimiento quirúrgico requerido".into(),
+        ));
     }
     if input.procedimiento_quirurgico.chars().count() > 500 {
         return Err(DbError::Message(
@@ -462,9 +477,7 @@ fn row_to_cirugia(row: &Row<'_>) -> rusqlite::Result<Cirugia> {
     })
 }
 
-fn require_conn<'a>(
-    guard: &'a MutexGuard<'_, Option<Connection>>,
-) -> DbResult<&'a Connection> {
+fn require_conn<'a>(guard: &'a MutexGuard<'_, Option<Connection>>) -> DbResult<&'a Connection> {
     guard
         .as_ref()
         .ok_or_else(|| DbError::Message("DB bloqueada".into()))
@@ -599,7 +612,12 @@ pub fn cirugias_list(
     };
 
     let mut values: Vec<String> = Vec::new();
-    if let Some(search) = params.search.as_deref().map(str::trim).filter(|v| !v.is_empty()) {
+    if let Some(search) = params
+        .search
+        .as_deref()
+        .map(str::trim)
+        .filter(|v| !v.is_empty())
+    {
         values.push(fts_query(search));
     }
     if let Some(procedimiento) = params
