@@ -1,0 +1,49 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies / build artifacts
+node_modules
+dist
+dist-ssr
+src-tauri/target
+*.local
+*.tsbuildinfo
+
+# Tauri-generated capability schemas (regenerated on build)
+src-tauri/gen/schemas
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Encrypted user data — must never enter git history
+bitacora.db
+bitacora.salt
+*.db
+*.salt
+
+# AI tooling residue
+.agents/
+.claude/
+.claude-flow/
+.cursor/
+.gemini/
+.kiro/
+.qoder/
+.swarm/
+skills-lock.json
+ruvector.db

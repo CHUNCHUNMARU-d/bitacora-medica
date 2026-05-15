@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>Bitácora Médica necesita acceso a tu carpeta de Documentos para exportar reportes PDF y CSV de cirugías.</string>
+    <key>NSDesktopFolderUsageDescription</key>
+    <string>Bitácora Médica necesita acceso al Escritorio si eliges guardar allí los reportes exportados.</string>
+    <key>NSDownloadsFolderUsageDescription</key>
+    <string>Bitácora Médica necesita acceso a Descargas si eliges guardar allí los reportes exportados.</string>
+    <key>NSPicturesFolderUsageDescription</key>
+    <string>Bitácora Médica necesita acceso a Imágenes para que puedas adjuntar radiografías a los registros de cirugía.</string>
+</dict>
+</plist>
