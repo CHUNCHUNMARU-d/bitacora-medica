@@ -94,8 +94,9 @@ Bundles generados en `src-tauri/target/release/bundle/`:
 
 - **Linux**: `appimage/bitacora-medica_<version>_amd64.AppImage` y
   `deb/bitacora-medica_<version>_amd64.deb`
-- **macOS**: `dmg/bitacora-medica_<version>_aarch64.dmg` (Apple Silicon)
-  o `dmg/bitacora-medica_<version>_x64.dmg` (Intel) — correr el build en macOS.
+- **macOS**: `dmg/bitacora-medica_<version>_aarch64.dmg` (Apple Silicon) —
+  correr el build en macOS. Intel macOS no se distribuye (Apple discontinuó
+  los Macs Intel en 2023).
 - **Windows**: `msi/bitacora-medica_<version>_x64_en-US.msi` (correr el build en
   Windows con las VS Build Tools instaladas)
 
